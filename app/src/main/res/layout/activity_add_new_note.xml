@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        tools:context=".presentation.views.newnote.AddNewNoteActivity">
+
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_new_note"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_default">
+
+
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_layout_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+                android:maxLines="1"
+                android:inputType="text|textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/input_title"
+                android:hint="@string/label_title_note"
+                android:padding="@dimen/min_margin"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_edit_body"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_layout_title"
+                android:layout_marginTop="@dimen/margin_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/input_body"
+                    android:inputType="text|textMultiLine|textCapSentences"
+                    android:hint="@string/label_input_here"
+                    android:padding="@dimen/min_margin"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+                android:layout_marginTop="@dimen/margin_default"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_edit_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+             android:text="@string/label_priority"
+        android:id="@+id/label_priority"/>
+
+        <RadioGroup
+                android:id="@+id/radio_group_priority"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/margin_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/label_priority">
+
+            <RadioButton
+                    android:id="@+id/prio_1"
+                    android:padding="@dimen/min_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/priority_1"/>
+
+            <RadioButton
+                    android:id="@+id/prio_2"
+                    android:padding="@dimen/min_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/priority_2"/>
+
+            <RadioButton
+                    android:id="@+id/prio_3"
+                    android:padding="@dimen/min_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/priority_3"/>
+
+        </RadioGroup>
+
+        <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/last_update"
+                app:layout_constraintTop_toBottomOf="@id/radio_group_priority"
+                android:layout_marginTop="@dimen/margin_default"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:text="@string/last_update_label"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout"
+            android:layout_margin="@dimen/margin_edit"
+            android:id="@+id/btn_confirm_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_btn_add_note"
+            android:text="@string/btn_confirm"
+            android:padding="@dimen/margin_edit"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

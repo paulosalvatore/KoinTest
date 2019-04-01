@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">KoinTest</string>
+    <string name="no_notes_add">Sem notas adicionadas</string>
+    <string name="label_title_note">Título</string>
+    <string name="label_input_here">Escreva sua nota aqui</string>
+    <string name="btn_confirm">Confirmar</string>
+    <string name="label_priority">Prioridade</string>
+    <string name="priority_1">baixa</string>
+    <string name="priority_2">média</string>
+    <string name="priority_3">alta</string>
+    <string name="error_input_empty">favor preencher todos os campos</string>
+    <string name="sucess_note_save">Nota salva!</string>
+    <string name="label_dialog_title">Atenção</string>
+    <string name="btn_dialog_cancel">Cancelar</string>
+    <string name="btn_exit_dialog">Sim, sair.</string>
+    <string name="last_update_label">última atualização - </string>
+    <string name="label_update_note">Nota atualizada.</string>
+    <string name="label_delete_menu">Excluir nota</string>
+    <string name="label_delete_note">Sim, excluir.</string>
+</resources>
