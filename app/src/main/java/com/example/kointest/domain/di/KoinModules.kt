@@ -1,4 +1,4 @@
-package com.example.kointest.domain.injection
+package com.example.kointest.domain.di
 
 import android.arch.persistence.room.Room
 import com.example.kointest.infra.NoteRepository

@@ -14,13 +14,14 @@ import com.example.kointest.domain.Note
 import com.example.kointest.domain.NoteViewModel
 import com.example.kointest.domain.utils.Enums
 import kotlinx.android.synthetic.main.activity_add_new_note.*
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddNewNoteActivity : AppCompatActivity(), IAddNewNoteView {
+class AddNewNoteActivity : AppCompatActivity(), INewNoteContract.View {
 
-
-
+    private val presenter by inject<INewNoteContract.Presenter> { parametersOf(this)}
     private var priority : Int = 0
     lateinit var mViewModel : NoteViewModel
     lateinit var note: Note
@@ -31,8 +32,6 @@ class AddNewNoteActivity : AppCompatActivity(), IAddNewNoteView {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true )
-
-        mViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
 
         intent?.extras?.let {
                 note = intent!!.extras!!.getSerializable("ID_NOTE") as Note
@@ -84,7 +83,7 @@ class AddNewNoteActivity : AppCompatActivity(), IAddNewNoteView {
                         contentNote =  body,
                         dateNote =  dateFormat,
                         priorityNote = priority)
-                    mViewModel.updateNote(note)
+                    presenter.updateNote(note)
                     showAlert(getString(R.string.label_update_note))
                     finish()
             }else{
@@ -93,7 +92,7 @@ class AddNewNoteActivity : AppCompatActivity(), IAddNewNoteView {
                     dateNote = dateFormat,
                     priorityNote = priority)
 
-                mViewModel.insert(note)
+                presenter.insert(note)
                 showAlert("Nota ${note.titleNote} salva!")
             }
 
@@ -128,7 +127,7 @@ class AddNewNoteActivity : AppCompatActivity(), IAddNewNoteView {
             .setTitle(getString(R.string.label_dialog_title))
             .setMessage("Deseja realmente sair?\nCaso haja alterações, não serão salvas.")
             .setPositiveButton(getString(R.string.btn_exit_dialog)){ _, _ ->
-                mViewModel.deleteNote(note)
+                presenter.deleteNote(note)
                 finish()
             }.setNegativeButton(getString(R.string.btn_dialog_cancel)){ dialog, _ ->
                 dialog.dismiss()
