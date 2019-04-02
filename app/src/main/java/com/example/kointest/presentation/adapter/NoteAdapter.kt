@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.kointest.R
-import com.example.kointest.domain.Note
+import com.example.kointest.domain.entity.Note
 import com.example.kointest.presentation.views.newnote.AddNewNoteActivity
 import kotlinx.android.synthetic.main.row_note_item.view.*
 

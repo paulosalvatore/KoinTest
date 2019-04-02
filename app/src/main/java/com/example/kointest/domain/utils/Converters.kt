@@ -3,7 +3,7 @@ package com.example.kointest.domain.utils
 import android.arch.persistence.room.TypeConverter
 import java.util.*
 
-class Converters {
+class DateTypeConverters {
 
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {

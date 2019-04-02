@@ -1,11 +1,9 @@
-package com.example.kointest.infra
+package com.example.kointest.infra.cache
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
-import com.example.kointest.domain.Note
-import io.reactivex.Flowable
+import com.example.kointest.domain.entity.Note
 import io.reactivex.Maybe
-import io.reactivex.Single
 
 @Dao
 interface NoteDao {

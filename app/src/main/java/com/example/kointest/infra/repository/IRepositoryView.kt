@@ -1,7 +1,7 @@
-package com.example.kointest.infra
+package com.example.kointest.infra.repository
 
 import android.arch.lifecycle.LiveData
-import com.example.kointest.domain.Note
+import com.example.kointest.domain.entity.Note
 
 interface IRepositoryView {
 

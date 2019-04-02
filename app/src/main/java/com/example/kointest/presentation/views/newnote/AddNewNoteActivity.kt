@@ -1,6 +1,5 @@
 package com.example.kointest.presentation.views.newnote
 
-import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -10,8 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.example.kointest.R
-import com.example.kointest.domain.Note
-import com.example.kointest.domain.NoteViewModel
+import com.example.kointest.domain.entity.Note
 import com.example.kointest.domain.utils.Enums
 import kotlinx.android.synthetic.main.activity_add_new_note.*
 import org.koin.android.ext.android.inject
@@ -21,9 +19,11 @@ import java.util.*
 
 class AddNewNoteActivity : AppCompatActivity(), INewNoteContract.View {
 
+
+
+
     private val presenter by inject<INewNoteContract.Presenter> { parametersOf(this)}
     private var priority : Int = 0
-    lateinit var mViewModel : NoteViewModel
     lateinit var note: Note
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,19 +35,24 @@ class AddNewNoteActivity : AppCompatActivity(), INewNoteContract.View {
 
         intent?.extras?.let {
                 note = intent!!.extras!!.getSerializable("ID_NOTE") as Note
-                input_title.setText(note.titleNote)
-                input_body.setText(note.contentNote)
-                last_update.visibility = View.VISIBLE
-                last_update.append(" " + note.dateNote)
-                when(note.priorityNote){
-                    Enums.Companion.Priority.LOW.getPriority() -> radio_group_priority.check(prio_1.id)
-                    Enums.Companion.Priority.MEDIUM.getPriority()  -> radio_group_priority.check(prio_2.id)
-                    Enums.Companion.Priority.HIGH.getPriority() -> radio_group_priority.check(prio_3.id)
-                }
+            inputValuesIntent(note)
+
         }
 
         btn_confirm_note.setOnClickListener {
             getValuesAndValidate()
+        }
+    }
+
+    override fun inputValuesIntent(note: Note) {
+        input_title.setText(note.titleNote)
+        input_body.setText(note.contentNote)
+        last_update.visibility = View.VISIBLE
+        last_update.append(" " + note.dateNote)
+        when(note.priorityNote){
+            Enums.Companion.Priority.LOW.getPriority() -> radio_group_priority.check(prio_1.id)
+            Enums.Companion.Priority.MEDIUM.getPriority()  -> radio_group_priority.check(prio_2.id)
+            Enums.Companion.Priority.HIGH.getPriority() -> radio_group_priority.check(prio_3.id)
         }
     }
 
@@ -74,26 +79,27 @@ class AddNewNoteActivity : AppCompatActivity(), INewNoteContract.View {
         }
 
         if(title.isEmpty() || body.isEmpty() || id.equals(-1)){
-            showAlert(getString(R.string.error_input_empty))
+            showAlertEmptyInput()
         } else {
             if(::note.isInitialized){
                     note = Note(
-                        note.id ,
+                        note.id,
                         titleNote = title,
-                        contentNote =  body,
-                        dateNote =  dateFormat,
-                        priorityNote = priority)
+                        contentNote = body,
+                        dateNote = dateFormat,
+                        priorityNote = priority
+                    )
                     presenter.updateNote(note)
-                    showAlert(getString(R.string.label_update_note))
                     finish()
             }else{
-                note = Note(titleNote = title,
+                note = Note(
+                    titleNote = title,
                     contentNote = body,
                     dateNote = dateFormat,
-                    priorityNote = priority)
-
+                    priorityNote = priority
+                )
                 presenter.insert(note)
-                showAlert("Nota ${note.titleNote} salva!")
+
             }
 
         }
@@ -114,7 +120,7 @@ class AddNewNoteActivity : AppCompatActivity(), INewNoteContract.View {
             .setTitle(getString(R.string.label_dialog_title))
             .setMessage("Tem certeza que deseja excluir a nota ${note.titleNote} ?")
             .setPositiveButton(getString(R.string.label_delete_note)){ _, _ ->
-                mViewModel.deleteNote(note)
+                presenter.deleteNote(note)
                 finish()
             }.setNegativeButton(getString(R.string.btn_dialog_cancel)){ dialog, _ ->
                 dialog.dismiss()
@@ -127,7 +133,6 @@ class AddNewNoteActivity : AppCompatActivity(), INewNoteContract.View {
             .setTitle(getString(R.string.label_dialog_title))
             .setMessage("Deseja realmente sair?\nCaso haja alterações, não serão salvas.")
             .setPositiveButton(getString(R.string.btn_exit_dialog)){ _, _ ->
-                presenter.deleteNote(note)
                 finish()
             }.setNegativeButton(getString(R.string.btn_dialog_cancel)){ dialog, _ ->
                 dialog.dismiss()
@@ -143,6 +148,10 @@ class AddNewNoteActivity : AppCompatActivity(), INewNoteContract.View {
 
     override fun showAlert(msg: String) {
        Snackbar.make(constraint_new_note, msg, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun showAlertEmptyInput() {
+        showAlert(getString(R.string.error_input_empty))
     }
 
 

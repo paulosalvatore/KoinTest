@@ -5,11 +5,10 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.example.kointest.R
-import com.example.kointest.domain.Note
+import com.example.kointest.domain.entity.Note
 import android.arch.lifecycle.ViewModelProviders
-import com.example.kointest.domain.NoteViewModel
+import com.example.kointest.domain.viewmodel.NoteViewModel
 import com.example.kointest.presentation.adapter.NoteAdapter
 import com.example.kointest.presentation.views.newnote.AddNewNoteActivity
 import kotlinx.android.synthetic.main.activity_all_notes.*
@@ -24,7 +23,10 @@ class AllNotesActivity : AppCompatActivity(), AllNotesView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_notes)
 
-        val mViewModelProvider = ViewModelProviders.of(this@AllNotesActivity).get(NoteViewModel(application)::class.java)
+        val mViewModelProvider = ViewModelProviders.of(this@AllNotesActivity).get(
+            NoteViewModel(
+                application
+            )::class.java)
 
         configRecycler()
 

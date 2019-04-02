@@ -1,10 +1,11 @@
-package com.example.kointest.domain
+package com.example.kointest.domain.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import com.example.kointest.infra.NoteRepository
+import com.example.kointest.domain.entity.Note
+import com.example.kointest.infra.repository.NoteRepository
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
@@ -20,11 +21,5 @@ class NoteViewModel constructor(application: Application) : AndroidViewModel(app
     }
 
     fun getAllNotes() = mListNote
-
-    fun insert(note: Note) = mRepo.insert(note)
-
-    fun updateNote(note : Note) = mRepo.update(note)
-
-    fun deleteNote(note: Note) =  mRepo.deleteNoteId(note)
 
 }
