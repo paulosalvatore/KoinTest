@@ -5,8 +5,7 @@ import com.example.kointest.domain.entity.Note
 
 interface IRepositoryView {
 
-    fun getAll()
-    fun getAllNote() : LiveData<List<Note>>
+    fun getAllNote(): LiveData<List<Note>>
     fun insert(note: Note)
     fun deleteNoteId(note: Note)
     fun update(note: Note)
